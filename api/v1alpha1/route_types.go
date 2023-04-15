@@ -27,6 +27,7 @@ import (
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 // RouteSpec defines the desired state of Route
+
 type RouteSpec struct {
 	TargetVSName      string `json:"targetVSName,omitempty" yaml:"targetVSName"`
 	TargetVSNamespace string `json:"targetVSNamespace,omitempty" yaml:"targetVSNamespace"`
@@ -103,7 +104,7 @@ type HTTPFaultInjectionAbort struct {
 
 type Percent struct {
 	// +optional
-	Value int32 `yaml:"value,omitempty" json:"value,omitempty"`
+	Value float64 `yaml:"value,omitempty" json:"value,omitempty"`
 }
 
 type CorsPolicy struct {

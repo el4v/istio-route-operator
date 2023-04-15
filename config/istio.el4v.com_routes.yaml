@@ -112,8 +112,7 @@ spec:
                               type: integer
                             percent:
                               properties:
-                                value:
-                                  type: number
+                                value: {}
                               type: object
                           type: object
                         delay:
@@ -130,8 +129,7 @@ spec:
                               type: integer
                             percentage:
                               properties:
-                                value:
-                                  type: number
+                                value: {}
                               type: object
                           type: object
                       type: object
