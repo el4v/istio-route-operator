@@ -1,0 +1,418 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.1
+  creationTimestamp: null
+  name: routes.istio.el4v.com
+spec:
+  group: istio.el4v.com
+  names:
+    kind: Route
+    listKind: RouteList
+    plural: routes
+    singular: route
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Route is the Schema for the routes API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              gateways:
+                items:
+                  type: string
+                type: array
+              hosts:
+                items:
+                  type: string
+                type: array
+              httpRules:
+                items:
+                  properties:
+                    corsPolicy:
+                      properties:
+                        allowCredentials:
+                          type: boolean
+                        allowHeaders:
+                          items:
+                            type: string
+                          type: array
+                        allowMethods:
+                          items:
+                            type: string
+                          type: array
+                        allowOrigins:
+                          items:
+                            properties:
+                              exact:
+                                type: string
+                              prefix:
+                                type: string
+                              regex:
+                                type: string
+                            type: object
+                          type: array
+                        enabled:
+                          description: deprecated field
+                          type: boolean
+                        exposeHeaders:
+                          items:
+                            type: string
+                          type: array
+                        maxAge:
+                          type: string
+                      type: object
+                    delegate:
+                      properties:
+                        enabled:
+                          description: deprecated field
+                          type: boolean
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                      type: object
+                    directResponse:
+                      properties:
+                        body:
+                          properties:
+                            bytes:
+                              type: integer
+                            string:
+                              type: string
+                          type: object
+                        status:
+                          format: int32
+                          type: integer
+                      type: object
+                    fault:
+                      properties:
+                        abort:
+                          properties:
+                            grpcStatus:
+                              type: string
+                            httpStatus:
+                              format: int32
+                              type: integer
+                            percent:
+                              properties:
+                                value:
+                                  type: number
+                              type: object
+                          type: object
+                        delay:
+                          properties:
+                            fixedDelay:
+                              description: A Duration represents the elapsed time
+                                between two instants as an int64 nanosecond count.
+                                The representation limits the largest representable
+                                duration to approximately 290 years.
+                              format: int64
+                              type: integer
+                            percent:
+                              format: int32
+                              type: integer
+                            percentage:
+                              properties:
+                                value:
+                                  type: number
+                              type: object
+                          type: object
+                      type: object
+                    headers:
+                      properties:
+                        enabled:
+                          description: deprecated field
+                          type: boolean
+                        request:
+                          properties:
+                            add:
+                              additionalProperties:
+                                type: string
+                              type: object
+                            remove:
+                              items:
+                                type: string
+                              type: array
+                            set:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                        response:
+                          properties:
+                            add:
+                              additionalProperties:
+                                type: string
+                              type: object
+                            remove:
+                              items:
+                                type: string
+                              type: array
+                            set:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                      type: object
+                    match:
+                      items:
+                        properties:
+                          authority:
+                            properties:
+                              exact:
+                                type: string
+                              prefix:
+                                type: string
+                              regex:
+                                type: string
+                            type: object
+                          gateways:
+                            items:
+                              type: string
+                            type: array
+                          headers:
+                            additionalProperties:
+                              properties:
+                                exact:
+                                  type: string
+                                prefix:
+                                  type: string
+                                regex:
+                                  type: string
+                              type: object
+                            type: object
+                          ignoreUriCase:
+                            type: boolean
+                          method:
+                            properties:
+                              exact:
+                                type: string
+                              prefix:
+                                type: string
+                              regex:
+                                type: string
+                            type: object
+                          name:
+                            type: string
+                          port:
+                            format: int32
+                            type: integer
+                          queryParams:
+                            additionalProperties:
+                              properties:
+                                exact:
+                                  type: string
+                                prefix:
+                                  type: string
+                                regex:
+                                  type: string
+                              type: object
+                            type: object
+                          scheme:
+                            properties:
+                              exact:
+                                type: string
+                              prefix:
+                                type: string
+                              regex:
+                                type: string
+                            type: object
+                          sourceLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          sourceNamespace:
+                            type: string
+                          uri:
+                            properties:
+                              exact:
+                                type: string
+                              prefix:
+                                type: string
+                              regex:
+                                type: string
+                            type: object
+                          withoutHeaders:
+                            additionalProperties:
+                              properties:
+                                exact:
+                                  type: string
+                                prefix:
+                                  type: string
+                                regex:
+                                  type: string
+                              type: object
+                            type: object
+                        type: object
+                      type: array
+                    mirror:
+                      properties:
+                        host:
+                          type: string
+                        port:
+                          properties:
+                            number:
+                              format: int32
+                              type: integer
+                          type: object
+                        subset:
+                          type: string
+                      required:
+                      - host
+                      type: object
+                    mirrorPercentage:
+                      type: integer
+                    name:
+                      type: string
+                    redirect:
+                      properties:
+                        authority:
+                          type: string
+                        enabled:
+                          description: deprecated field
+                          type: boolean
+                        port:
+                          format: int32
+                          type: integer
+                        redirectCode:
+                          format: int32
+                          type: integer
+                        scheme:
+                          type: string
+                        uri:
+                          type: string
+                      type: object
+                    retries:
+                      properties:
+                        attempts:
+                          format: int32
+                          type: integer
+                        perTryTimeout:
+                          description: A Duration represents the elapsed time between
+                            two instants as an int64 nanosecond count. The representation
+                            limits the largest representable duration to approximately
+                            290 years.
+                          format: int64
+                          type: integer
+                        retryOn:
+                          type: string
+                        retryRemoteLocalities:
+                          type: boolean
+                      type: object
+                    rewrite:
+                      properties:
+                        authority:
+                          type: string
+                        enabled:
+                          description: deprecated field
+                          type: boolean
+                        uri:
+                          type: string
+                      type: object
+                    route:
+                      items:
+                        properties:
+                          destination:
+                            properties:
+                              host:
+                                type: string
+                              port:
+                                properties:
+                                  number:
+                                    format: int32
+                                    type: integer
+                                type: object
+                              subset:
+                                type: string
+                            required:
+                            - host
+                            type: object
+                          enabled:
+                            type: boolean
+                          headers:
+                            properties:
+                              enabled:
+                                description: deprecated field
+                                type: boolean
+                              request:
+                                properties:
+                                  add:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                  remove:
+                                    items:
+                                      type: string
+                                    type: array
+                                  set:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                type: object
+                              response:
+                                properties:
+                                  add:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                  remove:
+                                    items:
+                                      type: string
+                                    type: array
+                                  set:
+                                    additionalProperties:
+                                      type: string
+                                    type: object
+                                type: object
+                            type: object
+                          weight:
+                            format: int32
+                            type: integer
+                        required:
+                        - destination
+                        type: object
+                      type: array
+                    timeout:
+                      description: A Duration represents the elapsed time between
+                        two instants as an int64 nanosecond count. The representation
+                        limits the largest representable duration to approximately
+                        290 years.
+                      format: int64
+                      type: integer
+                  required:
+                  - name
+                  type: object
+                minItems: 1
+                type: array
+              targetVSName:
+                type: string
+              targetVSNamespace:
+                type: string
+            required:
+            - httpRules
+            type: object
+          status:
+            description: RouteStatus defines the observed state of Route
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
